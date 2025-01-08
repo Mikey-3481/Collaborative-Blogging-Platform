@@ -2,6 +2,7 @@
   text-align: center;
   display: grid;
 }
+
 .home-navbar {
   height: 100px;
   align-content: center;
@@ -11,6 +12,12 @@
 .nav-btn-group {
   align-self: center;
   width: 40%;
+}
+
+.menu-icon {
+  align-self: center;
+  width: 10%;
+  display: none;
 }
 
 .home-logo {
@@ -27,4 +34,32 @@
   align-content: end;
   padding-bottom: 50px;
   color: #2e2c2c;
+}
+
+.home-drawer {
+  display: none;
+}
+
+.open-home-drawer {
+  background: #fff;
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  height: 100vh;
+}
+
+.open-home-drawer > button {
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .nav-btn-group {
+    display: none;
+  }
+  .home-logo {
+    width: 90%;
+  }
+  .menu-icon {
+    display: flex;
+  }
 }
