@@ -1,3 +1,30 @@
 .home {
   text-align: center;
+  display: grid;
+}
+.home-navbar {
+  height: 100px;
+  align-content: center;
+  display: flex;
+}
+
+.nav-btn-group {
+  align-self: center;
+  width: 40%;
+}
+
+.home-logo {
+  width: 60%;
+  align-content: center;
+}
+
+.logo {
+  width: 300px;
+}
+
+.title {
+  height: 300px;
+  align-content: end;
+  padding-bottom: 50px;
+  color: #2e2c2c;
 }

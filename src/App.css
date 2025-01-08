@@ -5,3 +5,12 @@
 .disable {
   display: none;
 }
+
+.MuiButtonBase-root {
+  font-weight: bold !important;
+  text-transform: none !important;
+}
+
+.logo {
+  
+}
