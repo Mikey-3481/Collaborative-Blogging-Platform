@@ -1,0 +1,12 @@
+.navbar {
+  position: static;
+  width: 100%;
+  border-bottom: 3px solid rgba(107, 105, 109, 0.74);
+  height: 5rem;
+}
+
+h1 {
+  margin: 0;
+  height: 100%;
+  width: auto;
+}
