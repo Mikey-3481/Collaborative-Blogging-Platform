@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import Logo from "./Logo";
+import { IconButton } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import "../styles/Navbar.css";
 
-export default function Navbar() {
+export default function Navbar({ fn }) {
   return (
-    <div className="navbar">
-      <h1>Collaborative Blogging Platform</h1>
-    </div>
+    <>
+      <div className="navbar">
+        <div className="nav-menu">
+          <IconButton onClick={fn}>
+            <MenuIcon />
+          </IconButton>
+        </div>
+        <div className="nav-logo">
+          <Logo />
+        </div>
+      </div>
+    </>
   );
 }

@@ -1,0 +1,26 @@
+.register {
+  justify-items: center;
+}
+
+.register > div {
+  width: 350px;
+}
+
+.register > div > button {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.register > div > div > .MuiTextField-root {
+  width: 100%;
+  margin: 10px 0 10px 0;
+}
+
+.form-label {
+  text-align: start;
+}
+
+.register-logo {
+  height: 100px;
+  align-content: center;
+}

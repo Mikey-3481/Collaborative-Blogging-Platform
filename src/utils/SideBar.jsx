@@ -1,9 +1,9 @@
 import React from "react";
+import { Drawer } from "@mui/material";
+import "../styles/SideBar.css";
 
-export default function SideBar() {
+export default function SideBar({ open }) {
   return (
-    <div className="sidebar">
-      
-    </div>
-  )
+    <Drawer variant="persistent" open={open}></Drawer>
+  );
 }

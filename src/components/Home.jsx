@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, IconButton, Drawer } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
@@ -41,23 +41,31 @@ export default function Home() {
           </IconButton>
         </div>
         <div className="nav-btn-group">
-          <Button sx={{ color: "#2e2c2c" }} className="login-btn">
+          <Button sx={{ color: "#2e2c2c" }} onClick={() => navigate("/login")}>
             Log In
           </Button>
-          <Button variant="outlined" className="register-btn">
+          <Button variant="outlined" onClick={() => navigate("/register")}>
             Sign Up
           </Button>
         </div>
       </div>
       <nav className={isDrawerOpen ? "open-home-drawer" : "home-drawer"}>
-        <Button sx={{ color: "#2e2c2c" }} variant="outlined">
+        <Button
+          sx={{ color: "#2e2c2c" }}
+          variant="outlined"
+          onClick={() => navigate("/login")}
+        >
           Log In
         </Button>
-        <Button variant="contained">Sign Up</Button>
+        <Button variant="contained" onClick={() => navigate("/register")}>
+          Sign Up
+        </Button>
       </nav>
       <h1 className="title">Get started with our powerful blogging platform</h1>
       <div className="reading-list-btn">
-        <Button variant="contained" sx={{position: "unset"}}>Start reading</Button>
+        <Button variant="contained" sx={{ position: "unset" }} onClick={() => navigate("/dashboard")}>
+          Start reading
+        </Button>
       </div>
     </div>
   );
