@@ -9,43 +9,64 @@ import Navbar from "./utils/Navbar";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
+import CreateBlog from "./components/CreateBlog";
+import EditProfile from "./components/EditProfile";
+import AdminDashBoard from "./components/AdminDashBoard";
 import SideBar from "./utils/SideBar";
 import Main from "./utils/Main";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 function App() {
   const [isHome, setIsHome] = useState(false);
-  const [isOpenSideBar, setIsOpenSideBar] = useState(false);
+  const [isOpenSideBar, setIsOpenSideBar] = useState(true);
 
   const toggleDrawer = () => {
     setIsOpenSideBar(!isOpenSideBar);
   };
 
   const location = useLocation();
-  const noNavRoutes = ["/", "/register", "/login"];
+  const noNavRoutes = [
+    "/",
+    "/register",
+    "/login",
+    "/profile/:id",
+    "/edit-profile/:id",
+  ];
 
   useEffect(() => {
     if (noNavRoutes.includes(location.pathname)) {
+      setIsOpenSideBar(false);
       setIsHome(true);
     } else {
       setIsHome(false);
+    }
+
+    if (location.pathname === "/dashboard") {
+      setIsOpenSideBar(true);
     }
   }, [location]);
 
   return (
     <div className="App">
-      {!isHome && <Navbar fn={toggleDrawer} />}
-      <SideBar open={isOpenSideBar} />
-      <Main open={isOpenSideBar}>
-        <Routes>
-          <Route path="/" Component={Home} />
-          <Route path="/register" Component={Register} />
-          <Route path="/login" Component={Login} />
-          <Route path="/dashboard" Component={DashBoard} />
-          <Route path="/post/:id" Component={PostPage} />
-          <Route path="/profile/:id" Component={Profile} />
-          <Route path="/setting" Component={Setting} />
-        </Routes>
-      </Main>
+      <Provider store={store}>
+        {!isHome && <Navbar fn={toggleDrawer} />}
+        <SideBar open={isOpenSideBar} />
+        <Main open={isOpenSideBar}>
+          <Routes>
+            <Route path="/" Component={Home} />
+            <Route path="/register" Component={Register} />
+            <Route path="/login" Component={Login} />
+            <Route path="/dashboard" Component={DashBoard} />
+            <Route path="/post/:id" Component={PostPage} />
+            <Route path="/profile/:id" Component={Profile} />
+            <Route path="/edit-profile/:id" Component={EditProfile} />
+            <Route path="/setting" Component={Setting} />
+            <Route path="/create-blog" Component={CreateBlog} />
+            <Route path="/admin-dashboard" Component={AdminDashBoard} />
+          </Routes>
+        </Main>
+      </Provider>
     </div>
   );
 }

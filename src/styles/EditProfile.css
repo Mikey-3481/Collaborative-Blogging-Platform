@@ -1,0 +1,46 @@
+.edit-profile {
+  margin: 0;
+}
+
+.edit-profile-card {
+  width: 60%;
+  justify-self: center;
+}
+
+.edit-profile-card > div {
+  padding: 30px 20px 40px;
+  display: grid;
+  text-align: start;
+}
+
+.edit-profile-card > div > p {
+  color: #888888;
+  height: 60px;
+}
+
+.edit-summary > textarea {
+  width: auto !important;
+  min-height: 300px;
+}
+
+.edit-btn-group {
+  display: flex !important;
+}
+
+.edit-btn-group > button {
+  width: 100px;
+}
+
+textarea:focus-visible {
+  outline: none;
+  border: 2px solid #1976d2;
+  border-radius: 2.5px;
+}
+
+.edit-name > .MuiTextField-root {
+  justify-self: center;
+}
+
+.edit-avatar > label {
+  justify-self: center;
+}

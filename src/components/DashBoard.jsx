@@ -6,6 +6,16 @@ export default function DashBoard() {
   return (
     <div className="dashboard">
       <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
+      <PostListItem />
     </div>
   );
 }

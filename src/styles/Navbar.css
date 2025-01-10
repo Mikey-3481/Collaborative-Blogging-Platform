@@ -1,9 +1,13 @@
 .navbar {
-  position: static;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  width: 100%;
   border-bottom: 3px solid rgba(107, 105, 109, 0.74);
   height: 100px;
   display: flex;
   padding-left: 20px;
+  z-index: 10;
 }
 
 .nav-logo {

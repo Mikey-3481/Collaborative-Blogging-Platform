@@ -1,0 +1,29 @@
+.create-blog-paper {
+  padding: 40px 60px 60px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.37);
+  margin-top: 20px;
+  background-color: rgba(128, 128, 128, 0.288);
+}
+
+.ql-container.ql-snow {
+  border: none;
+  font-size: 20px;
+}
+
+.create-blog {
+  position: relative;
+}
+
+#toolbar {
+  position: sticky;
+  top: 100px;
+  border: none;
+  z-index: 5;
+  background: #fff;
+}
+
+#editor {
+  min-height: 650px;
+}
