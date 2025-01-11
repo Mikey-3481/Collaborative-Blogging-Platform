@@ -24,6 +24,10 @@ main > div {
   margin-top: 100px;
 }
 
+main {
+  padding: 0 !important;
+}
+
 @media screen and (max-width: 600px) {
   main {
     display: contents;

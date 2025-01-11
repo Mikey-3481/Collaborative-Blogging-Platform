@@ -10,7 +10,7 @@ export default function Profile() {
   return (
     <div className="profile">
       <div className="profile-nav">
-        <Logo />
+        <Logo isPath={false} />
       </div>
       <Box className="profile-card">
         <div className="profile-name">

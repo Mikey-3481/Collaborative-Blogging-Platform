@@ -1,0 +1,50 @@
+.post-page {
+  margin-top: 50px;
+}
+
+.post-nav {
+  margin-bottom: 50px;
+  padding-left: 20%;
+  justify-content: start;
+  width: fit-content;
+}
+
+.blog-main {
+  width: 60%;
+  justify-self: center;
+  margin-top: 100px;
+}
+
+.blog-paper {
+  margin-bottom: 60px;
+}
+
+.comments {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.create-comment {
+  margin-top: 50px;
+  margin-bottom: 200px;
+  text-align: start;
+}
+
+.create-comment > .ql-container {
+  min-height: 200px;
+}
+
+.create-comment > button {
+  margin: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .post-nav {
+    justify-self: center;
+    padding: 0;
+  }
+
+  .blog-main {
+    width: 100%;
+  }
+}

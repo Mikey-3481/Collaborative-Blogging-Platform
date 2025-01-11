@@ -1,6 +1,7 @@
 .home {
   text-align: center;
   display: grid;
+  margin: 0;
 }
 
 .home-navbar {

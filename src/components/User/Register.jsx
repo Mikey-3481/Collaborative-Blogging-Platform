@@ -8,7 +8,7 @@ export default function Register() {
   return (
     <div className="register">
       <div className="register-logo">
-        <Logo />
+        <Logo isPath={true} />
       </div>
       <Box
         sx={{

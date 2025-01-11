@@ -5,15 +5,17 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.37);
   margin-top: 20px;
   background-color: rgba(128, 128, 128, 0.288);
+  min-height: 650px;
 }
 
-.ql-container.ql-snow {
+.create-blog-paper > .ql-container.ql-snow {
   border: none;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .create-blog {
   position: relative;
+  padding: 0 20px;
 }
 
 #toolbar {
@@ -26,4 +28,10 @@
 
 #editor {
   min-height: 650px;
+}
+
+@media screen and (max-width: 600px) {
+  .create-blog {
+    padding: 0;
+  }
 }

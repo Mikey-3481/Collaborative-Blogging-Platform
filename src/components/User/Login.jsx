@@ -8,7 +8,7 @@ export default function Login() {
   return (
     <div className="login">
       <div className="register-logo">
-        <Logo />
+        <Logo isPath={true} />
       </div>
       <Box
         sx={{

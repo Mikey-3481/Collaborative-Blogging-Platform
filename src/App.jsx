@@ -32,6 +32,7 @@ function App() {
     "/login",
     "/profile/:id",
     "/edit-profile/:id",
+    "/post/:id",
   ];
 
   useEffect(() => {

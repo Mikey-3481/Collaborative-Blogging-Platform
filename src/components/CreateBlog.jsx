@@ -8,7 +8,7 @@ export default function CreateBlog() {
 
   useEffect(() => {
     if (quillRef.current) return;
-    quillRef.current = new Quill("#editor", {
+    quillRef.current = new Quill("#create_blog", {
       modules: {
         toolbar: "#toolbar",
       },
@@ -29,7 +29,7 @@ export default function CreateBlog() {
         <button className="ql-code-block"></button>
       </div>
       <div className="create-blog-paper" elevation={3}>
-        <div id="editor"></div>
+        <div id="create_blog"></div>
       </div>
     </div>
   );
