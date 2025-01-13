@@ -53,7 +53,7 @@ export default function Register() {
     if (success) {
       navigate("/dashboard");
     }
-  }, [success, navigate]);
+  });
 
   return (
     <div className="register">
