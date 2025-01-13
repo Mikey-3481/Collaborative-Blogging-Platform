@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-export default function Logo({ isPath }) {
+export default function Logo({ path }) {
   return (
-    <Link to={isPath ? "/" : ""}>
+    <Link to={path ? path : "#"}>
       <img
         className="logo"
         src={require("../styles/img/logo.png")}

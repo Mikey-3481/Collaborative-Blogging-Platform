@@ -1,61 +1,51 @@
 import { v4 as uuidv4 } from "uuid";
 
-export const REGISTER_REQUEST = "REGISTER_REQUEST";
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_FAILURE = "REGISTER_FAILURE";
-export const LOGIN_REQUESET = "LOGIN_REQUESET";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILURE = "LOGIN_FAILURE";
+export const USER_REQUEST = "USER_REQUEST";
+export const USER_SUCCESS = "USER_SUCCESS";
+export const USER_FAILURE = "USER_FAILURE";
+export const LOG_OUT = "LOG_OUT";
 
 const getUsers = () => JSON.parse(localStorage.getItem("users")) || [];
 const setUsers = (users) =>
   localStorage.setItem("users", JSON.stringify(users));
 
-export const registerRequest = () => ({ type: REGISTER_REQUEST });
+export const userRequest = () => ({
+  type: USER_REQUEST,
+});
 
-export const registerSuccess = (data) => ({
-  type: REGISTER_SUCCESS,
+export const userSuccess = (data) => ({
+  type: USER_SUCCESS,
   payload: data,
 });
 
-export const registerFailure = (error) => ({
-  type: REGISTER_FAILURE,
+export const userFailure = (error) => ({
+  type: USER_FAILURE,
   payload: error,
 });
 
-export const loginRequest = () => ({
-  type: LOGIN_REQUESET,
-});
-
-export const loginSuccess = (data) => ({
-  type: LOGIN_SUCCESS,
-  payload: data,
-});
-
-export const loginFailure = (error) => ({
-  type: LOGIN_FAILURE,
-  payload: error,
+export const Logout = () => ({
+  type: LOG_OUT,
 });
 
 export const registerUser =
   ({ name, email, password, role }) =>
   (dispatch) => {
-    dispatch(registerRequest());
+    dispatch(userRequest());
     setTimeout(() => {
       try {
         const users = getUsers();
         const userExists = users.some((user) => user.email === email);
 
         if (userExists) {
-          dispatch(registerFailure("User already exists!"));
+          dispatch(userFailure("User already exists!"));
         } else {
           const newUser = { id: uuidv4(), name, email, password, role };
           users.push(newUser);
           setUsers(users);
-          dispatch(registerSuccess(newUser));
+          dispatch(userSuccess(newUser));
         }
       } catch (error) {
-        dispatch(registerFailure("Something went wrong!"));
+        dispatch(userFailure("Something went wrong!"));
       }
     }, 3000);
   };
@@ -63,18 +53,32 @@ export const registerUser =
 export const loginUser =
   ({ email, password }) =>
   (dispatch) => {
-    dispatch(loginRequest());
+    dispatch(userRequest());
     setTimeout(() => {
       try {
         const users = getUsers();
         const user = users.find((user) => user.email === email);
         if (user && user.password === password) {
-          dispatch(loginSuccess(user));
+          dispatch(userSuccess(user));
         } else {
-          dispatch(loginFailure("Invalid email or password!"));
+          dispatch(userFailure("Invalid email or password!"));
         }
       } catch (error) {
-        dispatch(registerFailure("Something went wrong!"));
+        dispatch(userFailure("Something went wrong!"));
       }
     }, 3000);
   };
+
+export const logoutUser = () => {
+  return (dispatch) => {
+    dispatch(userRequest());
+    setTimeout(() => {
+      try {
+        localStorage.removeItem("currentUser");
+        dispatch(Logout());
+      } catch (error) {
+        dispatch(userFailure("Something went wrong!"));
+      }
+    }, 1000);
+  };
+};

@@ -51,7 +51,7 @@ export default function Login() {
   return (
     <div className="login">
       <div className="register-logo">
-        <Logo isPath={true} />
+        <Logo path={"/"} />
       </div>
       <Box
         sx={{

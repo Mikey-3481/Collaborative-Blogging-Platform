@@ -11,7 +11,7 @@ export default function EditProfile() {
   return (
     <div className="edit-profile">
       <div className="profile-nav">
-        <Logo isPath={false} />
+        <Logo path={null} />
       </div>
       <Box className="edit-profile-card">
         <div className="edit-name">

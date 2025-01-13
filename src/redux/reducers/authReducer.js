@@ -1,10 +1,8 @@
 import {
-  REGISTER_REQUEST,
-  REGISTER_SUCCESS,
-  REGISTER_FAILURE,
-  LOGIN_REQUESET,
-  LOGIN_FAILURE,
-  LOGIN_SUCCESS,
+  USER_REQUEST,
+  USER_SUCCESS,
+  USER_FAILURE,
+  LOG_OUT,
 } from "../actions/authActions";
 
 const initialState = {
@@ -15,18 +13,14 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_REQUEST:
+    case USER_REQUEST:
       return { ...state, loading: true, success: null, error: null };
-    case REGISTER_SUCCESS:
+    case USER_SUCCESS:
       return { ...state, loading: false, success: action.payload, error: null };
-    case REGISTER_FAILURE:
+    case USER_FAILURE:
       return { ...state, loading: false, success: null, error: action.payload };
-    case LOGIN_REQUESET:
-      return { ...state, loading: true, success: null, error: null };
-    case LOGIN_SUCCESS:
-      return { ...state, loading: false, success: action.payload, error: null };
-    case LOGIN_FAILURE:
-      return { ...state, loading: false, success: null, error: action.payload };
+    case LOG_OUT:
+      return { ...state, loading: false, success: null, error: null };
     default:
       return state;
   }

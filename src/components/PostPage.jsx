@@ -29,7 +29,7 @@ export default function PostPage() {
   return (
     <div className="post-page">
       <div className="post-nav">
-        <Logo isPath={false} />
+        <Logo path={null} />
       </div>
       <Divider />
       <div className="blog-main">

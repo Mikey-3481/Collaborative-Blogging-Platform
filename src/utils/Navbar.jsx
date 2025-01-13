@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Logo from "./Logo";
 import { IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -14,7 +14,7 @@ export default function Navbar({ fn }) {
           </IconButton>
         </div>
         <div className="nav-logo">
-          <Logo />
+          <Logo path={"/dashboard"} />
         </div>
       </div>
     </>

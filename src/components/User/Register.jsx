@@ -58,7 +58,7 @@ export default function Register() {
   return (
     <div className="register">
       <div className="register-logo">
-        <Logo isPath={true} />
+        <Logo path={"/"} />
       </div>
       <Box
         sx={{
