@@ -2,20 +2,20 @@
   justify-items: center;
 }
 
-.login > div {
+.login > form {
   width: 350px;
 }
 
-.login > div > a {
+.login > form > a {
   margin-bottom: 30px;
 }
 
-.login > div > button {
+.login > form > button {
   margin-top: 50px;
   margin-bottom: 20px;
 }
 
-.login > div > div > .MuiTextField-root {
+.login > form > div > .MuiTextField-root {
   width: 100%;
   margin: 10px 0 10px 0;
 }

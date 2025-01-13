@@ -16,6 +16,7 @@ export default function Login() {
           flexDirection: "column",
           "& .MuiTextField-root": { width: "25ch" },
         }}
+        component={"form"}
       >
         <Link to="/register" underline="hover">
           Need an account?

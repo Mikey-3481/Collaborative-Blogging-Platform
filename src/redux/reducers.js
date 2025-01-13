@@ -2,6 +2,9 @@ import { TOGGLE_DIALOG } from "./actions";
 
 const initialState = {
   isDialogOpen: false,
+  user: {
+    
+  }
 };
 
 const itemReducer = (state = initialState, action) => {

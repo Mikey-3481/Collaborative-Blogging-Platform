@@ -2,21 +2,21 @@
   justify-items: center;
 }
 
-.register > div {
+.register > form {
   width: 350px;
 }
 
-.register > div > button {
+.register > form > button {
   margin-top: 50px;
   margin-bottom: 20px;
 }
 
-.register > div > div > .MuiTextField-root {
+.register > form > div > .MuiTextField-root {
   width: 100%;
   margin: 10px 0 10px 0;
 }
 
-.form-label {
+.register > form > .MuiFormControl-root {
   text-align: start;
 }
 
