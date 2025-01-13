@@ -16,7 +16,7 @@ import SideBar from "./utils/SideBar";
 import Main from "./utils/Main";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { UserProvider } from "./context/UserContext";
+import { AuthProvider } from "./context/AuthContext";
 
 const AppRoutes = () => (
   <Routes>
@@ -67,13 +67,13 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        <UserProvider>
+        <AuthProvider>
           {!isHome && <Navbar fn={toggleDrawer} />}
           <SideBar open={isOpenSideBar} />
           <Main open={isOpenSideBar}>
             <AppRoutes />
           </Main>
-        </UserProvider>
+        </AuthProvider>
       </Provider>
     </div>
   );

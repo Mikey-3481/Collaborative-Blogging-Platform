@@ -79,6 +79,6 @@ export const logoutUser = () => {
       } catch (error) {
         dispatch(userFailure("Something went wrong!"));
       }
-    }, 1000);
+    }, 3000);
   };
 };

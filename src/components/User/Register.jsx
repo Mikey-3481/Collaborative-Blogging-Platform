@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   TextField,
   Box,
@@ -14,11 +14,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../redux/actions/authActions";
 import Logo from "../../utils/Logo";
 import "../../styles/Register.css";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.auth);
+
+  const { updateUser } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -51,6 +54,7 @@ export default function Register() {
 
   useEffect(() => {
     if (success) {
+      updateUser(success);
       navigate("/dashboard");
     }
   });

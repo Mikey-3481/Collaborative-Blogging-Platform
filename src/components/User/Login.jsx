@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   TextField,
   Box,
@@ -12,11 +12,13 @@ import Logo from "../../utils/Logo";
 import "../../styles/Login.css";
 import { loginUser } from "../../redux/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.auth);
+  const { updateUser } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,6 +45,7 @@ export default function Login() {
   };
 
   useEffect(() => {
+    updateUser(success);
     if (success) {
       navigate("/dashboard");
     }
