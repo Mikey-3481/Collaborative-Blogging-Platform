@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Logo from "../utils/Logo";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box, Divider, Typography, Button, TextField } from "@mui/material";
 import ImageUploader from "../utils/ImageUploader";
 import "../styles/EditProfile.css";
+import { AuthContext } from "../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfile } from "../redux/actions/authActions";
 
 export default function EditProfile() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { user } = useContext(AuthContext);
+  const [summary, setSummary] = useState(user.summary);
+  const [avatar, setAvatar] = useState(user.avatar);
+  const [name, setName] = useState(user.name);
+  const { success } = useSelector((state) => state.auth);
+
+  const handleSubmit = () => {
+    dispatch(editProfile({ id, name, avatar, summary }));
+  };
+
+  useEffect(() => {
+    if (success !== null) {
+      navigate(`/profile/${id}`);
+    }
+  }, [success]);
 
   return (
     <div className="edit-profile">
@@ -16,20 +36,19 @@ export default function EditProfile() {
       <Box className="edit-profile-card">
         <div className="edit-name">
           <Typography>Edit Name</Typography>
-          <TextField />
+          <TextField value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <Divider />
         <div className="edit-avatar">
           <Typography>Edit Photo</Typography>
-          <ImageUploader />
+          <ImageUploader avatar={avatar} change={setAvatar} />
         </div>
         <Divider />
         <div className="edit-summary">
           <Typography>Edit Summary</Typography>
           <textarea
-            value={
-              "European Union laws require you to give European Union visitors information about cookies used and data collected on your blog. Inmany cases, these laws also require you to obtain consent. As acourtesy, we have added a notice on your blog to explain Google'suse of certain Blogger and Google cookies, including use of GoogleAnalytics and AdSense cookies, and other data collected by Google.You are responsible for confirming this notice actually works foryour blog, and that it displays. If you employ other cookies, forexample by adding third party features, this notice may not workfor you. If you include functionality from other providers theremay be extra information collected from your users."
-            }
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
             name=""
             id=""
             style={{
@@ -41,17 +60,13 @@ export default function EditProfile() {
           ></textarea>
         </div>
         <Box className="edit-btn-group">
-          <Button
-            variant="text"
-            color="success"
-            onClick={() => navigate("/profile/:id")}
-          >
+          <Button variant="text" color="success" onClick={handleSubmit}>
             Save
           </Button>
           <Button
             variant="text"
             sx={{ color: "grey" }}
-            onClick={() => navigate("/profile/:id")}
+            onClick={() => navigate(`/profile/${id}`)}
           >
             Cancel
           </Button>

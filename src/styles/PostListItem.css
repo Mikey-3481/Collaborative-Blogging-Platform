@@ -34,6 +34,11 @@
   margin-bottom: 10px;
 }
 
+.post-paper > button {
+  width: fit-content;
+  justify-self: end;
+}
+
 @media screen and (max-width: 600px) {
   .post-img {
     display: none;

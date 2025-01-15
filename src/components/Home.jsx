@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, IconButton } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const toggleDrawer = () => {
@@ -24,6 +26,14 @@ export default function Home() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const startReading = () => {
+    if (user) {
+      navigate("/dashoboard");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="home">
@@ -63,7 +73,11 @@ export default function Home() {
       </nav>
       <h1 className="title">Get started with our powerful blogging platform</h1>
       <div className="reading-list-btn">
-        <Button variant="contained" sx={{ position: "unset" }} onClick={() => navigate("/dashboard")}>
+        <Button
+          variant="contained"
+          sx={{ position: "unset" }}
+          onClick={startReading}
+        >
           Start reading
         </Button>
       </div>

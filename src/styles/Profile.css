@@ -31,6 +31,10 @@
   background-position: center;
 }
 
+.profile-avatar > img {
+  width: 100%;
+}
+
 .profile-member-data {
   font-weight: 600;
   color: #666666;

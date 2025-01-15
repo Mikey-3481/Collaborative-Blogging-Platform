@@ -10,11 +10,11 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { toggleDialog } from "../redux/actions";
+import { toggleDialog } from "../redux/actions/modalActions";
 
 export default function BlogTitle() {
   const dispatch = useDispatch();
-  const isDialogOpen = useSelector((state) => state.isDialogOpen);
+  const { isDialogOpen } = useSelector((state) => state.item);
   const navigate = useNavigate();
 
   const handleClose = () => {

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 export const USER_REQUEST = "USER_REQUEST";
 export const USER_SUCCESS = "USER_SUCCESS";
 export const USER_FAILURE = "USER_FAILURE";
-export const LOG_OUT = "LOG_OUT";
+export const USER_RESET = "USER_RESET";
 
 const getUsers = () => JSON.parse(localStorage.getItem("users")) || [];
 const setUsers = (users) =>
@@ -23,8 +23,18 @@ export const userFailure = (error) => ({
   payload: error,
 });
 
-export const Logout = () => ({
-  type: LOG_OUT,
+export const resetState = () => ({
+  type: USER_RESET,
+});
+
+export const sendUser = (data) => ({
+  type: USER_SUCCESS,
+  payload: data,
+});
+
+export const editContent = (data) => ({
+  type: USER_SUCCESS,
+  payload: data,
 });
 
 export const registerUser =
@@ -39,7 +49,16 @@ export const registerUser =
         if (userExists) {
           dispatch(userFailure("User already exists!"));
         } else {
-          const newUser = { id: uuidv4(), name, email, password, role };
+          const newUser = {
+            id: uuidv4(),
+            name,
+            email,
+            password,
+            role,
+            createdAt: Date.now(),
+            avatar: "",
+            summary: "",
+          };
           users.push(newUser);
           setUsers(users);
           dispatch(userSuccess(newUser));
@@ -75,10 +94,55 @@ export const logoutUser = () => {
     setTimeout(() => {
       try {
         localStorage.removeItem("currentUser");
-        dispatch(Logout());
+        dispatch(resetState());
       } catch (error) {
         dispatch(userFailure("Something went wrong!"));
       }
     }, 3000);
+  };
+};
+
+export const findUser = (id) => {
+  return (dispatch) => {
+    dispatch(userRequest);
+    setTimeout(() => {
+      try {
+        const users = getUsers();
+        const user = users.find((user) => user.id === id);
+
+        dispatch(sendUser(user));
+      } catch (error) {
+        dispatch(userFailure(error));
+      }
+    }, 1000);
+  };
+};
+
+export const editProfile = ({ id, name, avatar, summary }) => {
+  return (dispatch) => {
+    dispatch(userRequest);
+    setTimeout(() => {
+      try {
+        const users = getUsers();
+        const userIndex = users.findIndex((user) => user.id === id);
+
+        if (userIndex === -1) {
+          throw new Error("User not found!");
+        }
+
+        users[userIndex] = {
+          ...users[userIndex],
+          name,
+          avatar,
+          summary,
+        };
+
+        setUsers(users);
+
+        dispatch(editContent(users[userIndex]));
+      } catch (error) {
+        dispatch(userFailure(error));
+      }
+    });
   };
 };

@@ -57,7 +57,7 @@ export default function Register() {
       updateUser(success);
       navigate("/dashboard");
     }
-  });
+  }, [success]);
 
   return (
     <div className="register">

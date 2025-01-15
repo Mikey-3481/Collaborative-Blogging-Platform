@@ -1,51 +1,85 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  Typography,
+  Button,
+  Box,
+  Paper,
+  CircularProgress,
+} from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import Logo from "../utils/Logo";
-import { Typography, Button, Box, Paper } from "@mui/material";
+import { AuthContext } from "../context/AuthContext";
+import { findUser, resetState } from "../redux/actions/authActions";
 import "../styles/Profile.css";
-import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  const { success } = useSelector((state) => state.auth);
+
+  const { updateUser, user } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(true);
+
+  const editProfile = () => {
+    dispatch(resetState());
+    navigate(`/edit-profile/${id}`);
+  };
+
+  useEffect(() => {
+    if (id) {
+      dispatch(findUser(id));
+    }
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    if (success) {
+      updateUser(success);
+      setLoading(false);
+    }
+  }, [success, updateUser]);
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <CircularProgress />
+        <Typography>Loading profile...</Typography>
+      </div>
+    );
+  }
 
   return (
     <div className="profile">
       <div className="profile-nav">
         <Logo path={null} />
       </div>
+
       <Box className="profile-card">
         <div className="profile-name">
           <Typography color="warning" variant="h6">
-            Michael
+            {user.name}
           </Typography>
-          <Button
-            variant="contained"
-            color="warning"
-            onClick={() => navigate("/edit-profile/:id")}
-          >
+          <Button variant="contained" color="warning" onClick={editProfile}>
             Edit Profile
           </Button>
         </div>
         <div className="profile-content">
-          <Paper className="profile-avatar"></Paper>
-          <Box className="profile-member-data">
-            On Blogger since January 2025
-          </Box>
-          <Box className="profile-summary">
-            <Typography variant="h6">About me</Typography>
-            <Typography className="summary">
-              European Union laws require you to give European Union visitors
-              information about cookies used and data collected on your blog. In
-              many cases, these laws also require you to obtain consent. As a
-              courtesy, we have added a notice on your blog to explain Google's
-              use of certain Blogger and Google cookies, including use of Google
-              Analytics and AdSense cookies, and other data collected by Google.
-              You are responsible for confirming this notice actually works for
-              your blog, and that it displays. If you employ other cookies, for
-              example by adding third party features, this notice may not work
-              for you. If you include functionality from other providers there
-              may be extra information collected from your users.
-            </Typography>
-          </Box>
+          <div className="profile-content">
+            <Paper className="profile-avatar">
+              <img src={user.avatar} alt="" />
+            </Paper>
+            <Box className="profile-member-data">{user.createdAt}</Box>
+            <Box className="profile-summary">
+              <Typography variant="h6">About me</Typography>
+              <Typography className="summary">
+                {user.summary || "No summary available"}
+              </Typography>
+            </Box>
+          </div>
         </div>
       </Box>
     </div>

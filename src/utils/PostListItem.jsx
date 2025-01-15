@@ -1,9 +1,15 @@
-import React from "react";
-import { Paper, Typography, Box } from "@mui/material";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Paper, Typography, Box, IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import "../styles/PostListItem.css";
 
 export default function PostListItem() {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  console.log(user)
+
   const ReadMore = ({ children }) => {
     const text = children.slice(0, 800);
 
@@ -48,6 +54,12 @@ export default function PostListItem() {
           </ReadMore>
         </Box>
       </Box>
+      <IconButton
+        id={user.role === "admin" ? "" : "none"}
+        onClick={() => navigate("/edit-blog")}
+      >
+        <EditIcon />
+      </IconButton>
     </Paper>
   );
 }

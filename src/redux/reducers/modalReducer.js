@@ -1,13 +1,10 @@
-import { TOGGLE_DIALOG } from "./actions";
+import { TOGGLE_DIALOG } from "../actions/modalActions";
 
-const initialState = {
+const initialDialogState = {
   isDialogOpen: false,
-  user: {
-    
-  }
 };
 
-const itemReducer = (state = initialState, action) => {
+const itemReducer = (state = initialDialogState, action) => {
   switch (action.type) {
     case TOGGLE_DIALOG:
       return {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 
-function ImageUploader() {
-  const [image, setImage] = useState(null);
+function ImageUploader({ avatar, change }) {
+  const [image, setImage] = useState(avatar);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -10,6 +10,7 @@ function ImageUploader() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result);
+        change(reader.result);
       };
       reader.readAsDataURL(file);
     }

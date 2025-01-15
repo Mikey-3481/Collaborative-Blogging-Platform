@@ -9,16 +9,19 @@ import {
 } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import FormatPaintIcon from "@mui/icons-material/FormatPaint";
 import "../styles/SideBar.css";
 import BlogTitle from "../components/BlogTitle";
 import { useNavigate } from "react-router-dom";
-import { toggleDialog } from "../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { toggleDialog } from "../redux/actions/modalActions";
+import { useDispatch } from "react-redux";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export default function SideBar({ open }) {
   const dispatch = useDispatch();
-  const isDialogOpen = useSelector((state) => state.isDialogOpen);
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const handleOpen = () => {
     dispatch(toggleDialog());
@@ -26,7 +29,10 @@ export default function SideBar({ open }) {
 
   return (
     <Drawer variant="persistent" open={open}>
-      <nav aria-label="secondary mailbox folders">
+      <nav
+        aria-label="secondary mailbox folders"
+        id={user?.role === "editor" ? "" : "none"}
+      >
         <List>
           <ListItem disablePadding>
             <ListItemButton onClick={handleOpen}>
@@ -52,6 +58,17 @@ export default function SideBar({ open }) {
                 <BookmarkIcon />
               </ListItemIcon>
               <ListItemText primary="Reading List" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            id={user?.role === "admin" ? "" : "none"}
+            disablePadding
+          >
+            <ListItemButton onClick={() => navigate("/admin-dashboard")}>
+              <ListItemIcon>
+                <FormatPaintIcon />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
             </ListItemButton>
           </ListItem>
         </List>

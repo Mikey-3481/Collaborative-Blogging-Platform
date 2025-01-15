@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Setting() {
+  console.log("this is setting function");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.auth);
-  const { updateUser } = useContext(AuthContext);
+  const { clearUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -20,10 +22,10 @@ export default function Setting() {
 
   useEffect(() => {
     if (!loading && !success && !error) {
-      updateUser(null);
       navigate("/");
+      clearUser(null);
     }
-  });
+  }, [loading, success, error]);
 
   return (
     <div className="setting">
@@ -32,7 +34,11 @@ export default function Setting() {
           <Typography variant="">Use Blogger draft</Typography>
           <Switch defaultChecked={false} />
         </Box>
-        <Link to={"/profile/:id"} target="_blank" rel="noopener noreferrer">
+        <Link
+          to={`/profile/${user?.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           View Profile
         </Link>
         <Link onClick={handleLogout}>

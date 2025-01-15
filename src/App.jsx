@@ -11,7 +11,8 @@ import Login from "./components/User/Login";
 import Register from "./components/User/Register";
 import CreateBlog from "./components/CreateBlog";
 import EditProfile from "./components/EditProfile";
-import AdminDashBoard from "./components/AdminDashBoard";
+import AdminDashBoard from "./components/Admin/AdminDashBoard";
+import EditBlog from "./components/Admin/EditBlog";
 import SideBar from "./utils/SideBar";
 import Main from "./utils/Main";
 import { Provider } from "react-redux";
@@ -30,6 +31,7 @@ const AppRoutes = () => (
     <Route path="/setting" Component={Setting} />
     <Route path="/create-blog" Component={CreateBlog} />
     <Route path="/admin-dashboard" Component={AdminDashBoard} />
+    <Route path="/edit-blog" Component={EditBlog} />
   </Routes>
 );
 
@@ -42,24 +44,27 @@ function App() {
   };
 
   const location = useLocation();
-  const noNavRoutes = [
-    "/",
-    "/register",
-    "/login",
-    "/profile/:id",
-    "/edit-profile/:id",
-    "/post/:id",
+  const navRoutes = [
+    "/dashboard",
+    "/setting",
+    "/create-blog",
+    "/admin-dashboard",
+    "/edit-blog",
   ];
 
   useEffect(() => {
-    if (noNavRoutes.includes(location.pathname)) {
+    if (!navRoutes.includes(location.pathname)) {
       setIsOpenSideBar(false);
       setIsHome(true);
     } else {
       setIsHome(false);
     }
 
-    if (location.pathname === "/dashboard") {
+    if (
+      ["/dashboard", "/admin-dashboard", "/edit-blog"].includes(
+        location.pathname
+      )
+    ) {
       setIsOpenSideBar(true);
     }
   }, [location]);

@@ -5,6 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import "../styles/Navbar.css";
 
 export default function Navbar({ fn }) {
+
   return (
     <>
       <div className="navbar">
@@ -14,7 +15,9 @@ export default function Navbar({ fn }) {
           </IconButton>
         </div>
         <div className="nav-logo">
-          <Logo path={"/dashboard"} />
+          <Logo
+            path={"/dashboard"}
+          />
         </div>
       </div>
     </>

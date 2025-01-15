@@ -45,11 +45,11 @@ export default function Login() {
   };
 
   useEffect(() => {
-    updateUser(success);
-    if (success) {
+    if (success !== null) {
+      updateUser(success);
       navigate("/dashboard");
     }
-  });
+  }, [success]);
 
   return (
     <div className="login">
