@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import Logo from "../utils/Logo";
+import Loading from "../utils/Loading";
 import { AuthContext } from "../context/AuthContext";
 import { findUser, resetState } from "../redux/actions/authActions";
 import "../styles/Profile.css";
@@ -44,12 +45,7 @@ export default function Profile() {
   }, [success, updateUser]);
 
   if (loading) {
-    return (
-      <div className="loading-container">
-        <CircularProgress />
-        <Typography>Loading profile...</Typography>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (

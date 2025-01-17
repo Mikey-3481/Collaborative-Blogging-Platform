@@ -55,7 +55,7 @@ export const registerUser =
             email,
             password,
             role,
-            createdAt: Date.now(),
+            createdAt: new Date().toISOString(),
             avatar: "",
             summary: "",
           };

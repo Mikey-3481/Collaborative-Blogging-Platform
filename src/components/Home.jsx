@@ -29,7 +29,7 @@ export default function Home() {
 
   const startReading = () => {
     if (user) {
-      navigate("/dashoboard");
+      navigate("/dashboard");
     } else {
       navigate("/login");
     }

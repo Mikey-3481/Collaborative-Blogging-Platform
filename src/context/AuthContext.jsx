@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useState, useEffect } from "react";
+import React, { createContext, useCallback, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -9,9 +9,11 @@ export const AuthProvider = ({ children }) => {
 
   const updateUser = useCallback(
     (userData) => {
-      console.log(userData);
-      setCurrentUser(userData);
-      localStorage.setItem("currentUser", JSON.stringify(userData));
+      setCurrentUser((prevUser) => {
+        const updatedUser = { ...prevUser, ...userData };
+        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+        return updatedUser;
+      });
     },
     [setCurrentUser]
   );

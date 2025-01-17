@@ -1,14 +1,23 @@
 import React, { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Paper, Typography, Box, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { Link, useNavigate } from "react-router-dom";
+import { BlogContext } from "../context/BlogContext";
 import { AuthContext } from "../context/AuthContext";
+import renderText from "../helpers/renderText";
+import renderImage from "../helpers/renderImage";
 import "../styles/PostListItem.css";
 
-export default function PostListItem() {
+export default function PostListItem({ blog }) {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  console.log(user)
+  const location = useLocation();
+  const { updateBlogData } = useContext(BlogContext);
+
+  const handleNavigattion = () => {
+    updateBlogData(blog);
+    navigate("/edit-blog");
+  };
 
   const ReadMore = ({ children }) => {
     const text = children.slice(0, 800);
@@ -17,7 +26,12 @@ export default function PostListItem() {
       <p>
         {text}
         {"  . . . "}
-        <Link to={"/post/:id"} target="_blank" rel="noopener noreferrer">
+        <Link
+          to={`/blog/${blog.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          id={location.pathname === "/admin-dashboard" ? "none" : ""}
+        >
           Read more
         </Link>
       </p>
@@ -25,38 +39,37 @@ export default function PostListItem() {
   };
 
   return (
-    <Paper className="post-paper" elevation={3}>
+    <Paper
+      className="post-paper"
+      id={user?.draft && user.id === blog.author ? "draft" : ""}
+      elevation={3}
+    >
       <Box className="post-header">
         <Typography variant="h5" className="post-title">
-          this is the title
+          {blog.title}
         </Typography>
-        <Typography className="psot-updated">4 years ago</Typography>
+        <Typography
+          className="psot-updated"
+          id={user.role === "admin" ? "none" : ""}
+        >
+          {blog.published}
+        </Typography>
       </Box>
       <Box className="post-content">
-        <Box className="post-img"></Box>
+        <Box className="post-img">
+          <img src={renderImage(blog.content)} alt="" />
+        </Box>
         <Box className="post-text">
-          <ReadMore>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac. Consequat mauris nunc
-            congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-            facilisi etiam
-          </ReadMore>
+          <ReadMore>{renderText(blog.content)}</ReadMore>
         </Box>
       </Box>
       <IconButton
-        id={user.role === "admin" ? "" : "none"}
-        onClick={() => navigate("/edit-blog")}
+        id={
+          user.role === "admin" && location.pathname === "/admin-dashboard"
+            ? ""
+            : "none"
+        }
+        onClick={handleNavigattion}
       >
         <EditIcon />
       </IconButton>

@@ -1,19 +1,39 @@
 import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchBlogById } from "../redux/actions/postActions";
 import Quill from "quill";
-import "../styles/PostPage.css";
-import "quill/dist/quill.snow.css";
 import { Divider, Box, Button } from "@mui/material";
+import renderElements from "../helpers/renderElement";
 import Comment from "../utils/Comment";
 import Logo from "../utils/Logo";
+import Loading from "../utils/Loading";
+import "../styles/BlogPage.css";
+import "quill/dist/quill.snow.css";
 
-export default function PostPage() {
+export default function BlogPage() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const quillRef = useRef(null);
+  const { loading, success } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(fetchBlogById(id));
+  }, [dispatch]);
+
+  useEffect(() => {
+    const container = document.getElementById("blog-paper");
+
+    if (container) {
+      container.innerHTML = "";
+      renderElements(success?.content, "blog-paper");
+    }
+  }, [success]);
 
   useEffect(() => {
     if (quillRef.current) return;
     quillRef.current = new Quill("#create_comment", {
-      modules
-      : {
+      modules: {
         toolbar: [
           [{ header: [1, 2, false] }],
           ["bold", "italic", "underline"],
@@ -24,7 +44,11 @@ export default function PostPage() {
       placeholder: "Write your comment here ...",
       theme: "snow",
     });
-  }, []);
+  }, [loading, success]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="post-page">
@@ -33,7 +57,14 @@ export default function PostPage() {
       </div>
       <Divider />
       <div className="blog-main">
-        <Box className="blog-paper"></Box>
+        <Box className="blog-paper">
+          <div className="yellow-paper">
+            <div className="fit-content">
+              <h4 className="blog-title">{success?.title}</h4>
+              <div id="blog-paper" />
+            </div>
+          </div>
+        </Box>
         <Divider />
         <Box className="comments">
           <Comment />

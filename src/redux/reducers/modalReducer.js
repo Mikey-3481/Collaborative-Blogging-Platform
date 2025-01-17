@@ -1,15 +1,24 @@
-import { TOGGLE_DIALOG } from "../actions/modalActions";
+import {
+  TOGGLE_CONFIRM,
+  TOGGLE_TITLE,
+} from "../actions/modalActions";
 
 const initialDialogState = {
-  isDialogOpen: false,
+  isTitleDialogOpen: false,
+  isConfirmDialogOpen: false,
 };
 
 const itemReducer = (state = initialDialogState, action) => {
   switch (action.type) {
-    case TOGGLE_DIALOG:
+    case TOGGLE_TITLE:
       return {
         ...state,
-        isDialogOpen: !state.isDialogOpen,
+        isTitleDialogOpen: !state.isTitleDialogOpen,
+      };
+    case TOGGLE_CONFIRM:
+      return {
+        ...state,
+        isConfirmDialogOpen: !state.isConfirmDialogOpen,
       };
 
     default:

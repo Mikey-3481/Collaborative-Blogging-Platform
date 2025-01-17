@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -10,29 +10,42 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { toggleDialog } from "../redux/actions/modalActions";
+import { toggleTtitleDialog } from "../../redux/actions/modalActions";
+import { BlogContext } from "../../context/BlogContext";
 
 export default function BlogTitle() {
+  const [title, setTitle] = useState("");
+
+  const { updateBlogData } = useContext(BlogContext);
+  const { isTitleDialogOpen } = useSelector((state) => state.item);
   const dispatch = useDispatch();
-  const { isDialogOpen } = useSelector((state) => state.item);
   const navigate = useNavigate();
 
   const handleClose = () => {
-    dispatch(toggleDialog());
+    dispatch(toggleTtitleDialog());
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    try {
+      updateBlogData({ title: title, content: null });
+    } catch (error) {
+      return;
+    } finally {
+      handleClose();
+      navigate("/create-blog");
+    }
   };
 
   return (
     <>
       <Dialog
-        open={isDialogOpen}
+        open={isTitleDialogOpen}
         onClose={handleClose}
         PaperProps={{
           component: "form",
-          onSubmit: (event) => {
-            event.preventDefault();
-            handleClose();
-            navigate("/create-blog");
-          },
+          onSubmit: handleSubmit,
         }}
       >
         <DialogTitle>Title required</DialogTitle>
@@ -48,6 +61,7 @@ export default function BlogTitle() {
             type="text"
             fullWidth
             variant="standard"
+            onChange={(e) => setTitle(e.target.value)}
           />
         </DialogContent>
         <DialogActions>

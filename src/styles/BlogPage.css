@@ -19,6 +19,27 @@
   margin-bottom: 60px;
 }
 
+#blog-paper > img {
+  max-width: 100%;
+}
+
+.yellow-paper {
+  text-align: start;
+  background-color: rgba(255, 255, 0, 0.192);
+  padding: 50px 0 70px;
+}
+
+.fit-content {
+  width: 80%;
+  margin: auto;
+}
+
+.blog-title {
+  font-size: 30px;
+  font-family: sans-serif;
+  margin-bottom: 100px;
+}
+
 .comments {
   margin-top: 50px;
   margin-bottom: 50px;

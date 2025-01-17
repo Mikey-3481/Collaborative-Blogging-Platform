@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import "../styles/CreateBlog.css";
+import { BlogContext } from "../context/BlogContext";
 
 export default function CreateBlog() {
+  const { blogData, updateBlogData } = useContext(BlogContext);
   const quillRef = useRef(null);
+  console.log(blogData);
 
   useEffect(() => {
     if (quillRef.current) return;
@@ -15,7 +18,16 @@ export default function CreateBlog() {
       placeholder: "Write your blog here ...",
       theme: "snow",
     });
-  }, []);
+
+    if (blogData?.content) {
+      quillRef.current.root.innerHTML = blogData.content;
+    }
+
+    quillRef.current.on("text-change", () => {
+      const content = quillRef.current.root.innerHTML;
+      updateBlogData({ content });
+    });
+  }, [blogData, updateBlogData]);
 
   return (
     <div className="create-blog">

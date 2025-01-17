@@ -6,7 +6,6 @@
   border-bottom: 3px solid rgba(107, 105, 109, 0.74);
   height: 100px;
   display: flex;
-  padding-left: 20px;
   z-index: 10;
 }
 
@@ -17,4 +16,30 @@
 
 .nav-menu {
   align-content: center;
+  margin-left: 20px;
+}
+
+.nav-avatar {
+  width: 100px;
+  justify-items: center;
+  align-content: center;
+  margin-left: auto;
+}
+
+.nav-avatar > div {
+  width: 55%;
+  height: 55%;
+  border-radius: 50%;
+  border: 1px solid grey;
+}
+
+.nav-avatar > div > img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+@media screen and (max-width: 600px) {
+  .nav-avatar {
+    display: none;
+  }
 }
