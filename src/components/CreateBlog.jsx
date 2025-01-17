@@ -7,7 +7,6 @@ import { BlogContext } from "../context/BlogContext";
 export default function CreateBlog() {
   const { blogData, updateBlogData } = useContext(BlogContext);
   const quillRef = useRef(null);
-  console.log(blogData);
 
   useEffect(() => {
     if (quillRef.current) return;

@@ -1,23 +1,38 @@
 import {
-  USER_REQUEST,
-  USER_SUCCESS,
-  USER_FAILURE,
+  COMMENT_REQUEST,
+  COMMENT_FAILURE,
+  COMMENT_SUCCESS,
 } from "../actions/commentActions";
 
 const initialCommentState = {
-  loading: false,
-  success: null,
-  error: null,
+  commentLoading: false,
+  commentSuccess: null,
+  commentError: null,
 };
 
 const commentReducer = (state = initialCommentState, action) => {
   switch (action.type) {
-    case USER_REQUEST:
-      return { ...state, loading: true, success: null, error: null };
-    case USER_SUCCESS:
-      return { ...state, loading: false, success: action.payload, error: null };
-    case USER_FAILURE:
-      return { ...state, loading: false, success: null, error: action.payload };
+    case COMMENT_REQUEST:
+      return {
+        ...state,
+        commentLoading: true,
+        commentSuccess: null,
+        commentError: null,
+      };
+    case COMMENT_SUCCESS:
+      return {
+        ...state,
+        commentLoading: false,
+        commentSuccess: action.payload,
+        commentError: null,
+      };
+    case COMMENT_FAILURE:
+      return {
+        ...state,
+        commentLoading: false,
+        commentSuccess: null,
+        commentError: action.payload,
+      };
     default:
       return state;
   }

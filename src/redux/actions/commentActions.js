@@ -1,24 +1,24 @@
 import { v4 as uuidv4 } from "uuid";
 
-export const USER_REQUEST = "USER_REQUEST";
-export const USER_SUCCESS = "USER_SUCCESS";
-export const USER_FAILURE = "USER_FAILURE";
+export const COMMENT_REQUEST = "COMMENT_REQUEST";
+export const COMMENT_SUCCESS = "COMMENT_SUCCESS";
+export const COMMENT_FAILURE = "COMMENT_FAILURE";
 
 const getComments = () => JSON.parse(localStorage.getItem("comments")) || [];
 const setComments = (comments) =>
   localStorage.setItem("comments", JSON.stringify(comments));
 
 export const userRequest = () => ({
-  type: USER_REQUEST,
+  type: COMMENT_REQUEST,
 });
 
 export const userSuccess = (data) => ({
-  type: USER_SUCCESS,
+  type: COMMENT_SUCCESS,
   payload: data,
 });
 
 export const userFailure = (error) => ({
-  type: USER_FAILURE,
+  type: COMMENT_FAILURE,
   payload: error,
 });
 
@@ -55,7 +55,7 @@ export const deleteComment = (id) => (dispatch) => {
   dispatch(userRequest());
   try {
     const comments = getComments();
-    const filteredComments = comments.filter((item) => itme.id !== id);
+    const filteredComments = comments.filter((item) => item.id !== id);
     setComments(filteredComments);
     dispatch(userSuccess(filteredComments));
   } catch (error) {
