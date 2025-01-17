@@ -37,3 +37,7 @@ main {
 #none {
   display: none;
 }
+
+p {
+  white-space: pre-wrap;
+}
