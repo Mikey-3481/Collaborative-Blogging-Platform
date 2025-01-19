@@ -1,13 +1,15 @@
 import {
+  LEAVE_COMMENT,
+  FETCH_COMMENTS,
+  DELETE_COMMENT,
   COMMENT_REQUEST,
   COMMENT_FAILURE,
-  COMMENT_SUCCESS,
 } from "../actions/commentActions";
 
 const initialCommentState = {
   commentLoading: false,
-  commentSuccess: null,
   commentError: null,
+  commentState: [],
 };
 
 const commentReducer = (state = initialCommentState, action) => {
@@ -16,21 +18,33 @@ const commentReducer = (state = initialCommentState, action) => {
       return {
         ...state,
         commentLoading: true,
-        commentSuccess: null,
         commentError: null,
       };
-    case COMMENT_SUCCESS:
+    case LEAVE_COMMENT:
       return {
         ...state,
         commentLoading: false,
-        commentSuccess: action.payload,
+        commentState: [...state.commentState, action.payload],
+        commentError: null,
+      };
+    case FETCH_COMMENTS:
+      return {
+        ...state,
+        commentLoading: false,
+        commentState: action.payload,
+        commentError: null,
+      };
+    case DELETE_COMMENT:
+      return {
+        ...state,
+        commentLoading: false,
+        commentState: action.payload,
         commentError: null,
       };
     case COMMENT_FAILURE:
       return {
         ...state,
         commentLoading: false,
-        commentSuccess: null,
         commentError: action.payload,
       };
     default:

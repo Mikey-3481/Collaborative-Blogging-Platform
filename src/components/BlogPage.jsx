@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBlogById } from "../redux/actions/postActions";
 import { Divider, Box, Button } from "@mui/material";
-import renderElements from "../helpers/renderElement";
 import Comment from "../utils/Comment";
 import ErrorPage from "../utils/ErrorPage";
 import Logo from "../utils/Logo";
@@ -13,11 +12,13 @@ import "quill/dist/quill.snow.css";
 import useQuillEditor from "../hook/useQuillEditor";
 import { AuthContext } from "../context/AuthContext";
 import { fetchComments, leaveComment } from "../redux/actions/commentActions";
+import renderText from "../helpers/renderText";
+import parse from "html-react-parser";
 
 export default function BlogPage() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { commentLoading, commentSuccess, commentError } = useSelector(
+  const { commentLoading, commentState, commentError } = useSelector(
     (state) => state.comment
   );
   const { loading, success } = useSelector((state) => state.post);
@@ -37,29 +38,37 @@ export default function BlogPage() {
   });
 
   useEffect(() => {
-    quillRef.current.on("text-change", () => {
-      const content = quillRef.current.root.innerHTML;
+    const quill = quillRef.current;
+    const handler = () => {
+      const content = quill.root.innerHTML;
       setComment(content);
-    });
-  });
+    };
+    quill.on("text-change", handler);
+
+    return () => {
+      quill.off("text-change", handler);
+    };
+  }, [quillRef]);
+
+  useEffect(() => {
+    dispatch(fetchBlogById(id));
+    dispatch(fetchComments(id));
+  }, [id, dispatch]);
 
   const leaveMessage = () => {
+    if (comment === null || renderText(comment) === "") {
+      return;
+    }
     const newData = {
+      blog: id,
       avatar: user.avatar,
       name: user.name,
       comment: comment,
     };
     dispatch(leaveComment(newData));
+    quillRef.current.root.innerHTML = "";
+    setComment(null);
   };
-
-  useEffect(() => {
-    dispatch(fetchBlogById(id));
-    dispatch(fetchComments());
-  }, []);
-
-  useEffect(() => {
-    renderElements(success?.content, "blog-paper");
-  }, [success, loading, commentLoading, renderElements]);
 
   if (commentError) {
     return <ErrorPage error={commentError} />;
@@ -72,15 +81,19 @@ export default function BlogPage() {
           <div className="yellow-paper">
             <div className="fit-content">
               <h4 className="blog-title">{success?.title}</h4>
-              <div id="blog-paper" />
+              <div id="blog-paper">{success && parse(success.content)}</div>
             </div>
           </div>
         </Box>
         <Divider />
         <Box className="comments">
-          {commentSuccess?.map((data, index) => (
-            <Comment key={index} data={data} />
-          ))}
+          {Array.isArray(commentState)
+            ? commentState.map((data, index) => {
+                if (data.blog === id) {
+                  return <Comment key={index} data={data} />;
+                }
+              })
+            : null}
         </Box>
       </>
     );
